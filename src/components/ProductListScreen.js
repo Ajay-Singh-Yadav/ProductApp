@@ -10,12 +10,14 @@ import {
   SectionList,
   TouchableOpacity,
   RefreshControl,
+  Alert,
 } from 'react-native';
 import {fetchPosts, resetPosts} from '../redux/slices/postsSlice';
 import {useSelector, useDispatch} from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import {addCart} from '../redux/slices/cartSlice ';
+import Toast from 'react-native-toast-message';
 
 const ProductListScreen = () => {
   const navigation = useNavigation();
@@ -92,7 +94,7 @@ const ProductListScreen = () => {
         height: 1000,
         width: '100%',
         backgroundColor: 'white',
-        marginTop: 30,
+        marginTop: 0,
       }}>
       <View style={styles.searchContainer}>
         <AntDesign
@@ -173,15 +175,15 @@ const ProductListScreen = () => {
                     height: 30,
                     borderRadius: 15,
                     flexDirection: 'row',
-                    borderWidth: 1,
+
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginLeft: 0,
                   }}>
-                  <AntDesign name="star" size={20} color="green" />
-                  <AntDesign name="star" size={20} color="green" />
-                  <AntDesign name="star" size={20} color="green" />
-                  <AntDesign name="star" size={20} color="green" />
+                  <AntDesign name="star" size={20} color="#FFD700" />
+                  <AntDesign name="star" size={20} color="#FFD700" />
+                  <AntDesign name="star" size={20} color="#FFD700" />
+                  <AntDesign name="star" size={20} color="#FFD700" />
                   <Text style={{fontSize: 15, marginLeft: 8}}>
                     {item.rating}
                   </Text>
@@ -260,7 +262,14 @@ const ProductListScreen = () => {
                 </View>
 
                 <TouchableOpacity
-                  onPress={() => dispatch(addCart(item))}
+                  onPress={() => {
+                    dispatch(addCart(item));
+                    Toast.show({
+                      type: 'success',
+                      text1: 'Added to Cart',
+                      text2: `${item.title} was added successfully 👌`,
+                    });
+                  }}
                   style={[styles.buttonCard, {width: 120}]}>
                   <Text style={{fontSize: 13, fontFamily: 'TenorSans-Regular'}}>
                     Add to cart
