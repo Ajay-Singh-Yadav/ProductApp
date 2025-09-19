@@ -48,7 +48,9 @@ const CartScreen = () => {
       <TopBarComp />
 
       {items.length === 0 ? (
-        <Text>Your cart is empty.</Text>
+        <Text style={{fontSize: 20, margin: 15, textAlign: 'center'}}>
+          Your cart is empty.
+        </Text>
       ) : (
         <View style={{marginBottom: 250}}>
           <Text
@@ -208,12 +210,13 @@ const CartScreen = () => {
             height: 50,
             marginTop: 15,
           }}>
-          <TouchableOpacity style={[styles.actionButton, {paddingVertical: 0}]}>
+          <TouchableOpacity
+            onPress={() => dispatch(clearCart())}
+            style={[styles.actionButton, {paddingVertical: 0}]}>
             <Text style={[styles.actionText]}>Clear</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => dispatch(clearCart(items))}
-            style={styles.actionButton}>
+            style={[styles.actionButton, {backgroundColor: '#FFD700'}]}>
             <Text style={styles.actionText}>Checkout</Text>
           </TouchableOpacity>
         </View>
@@ -404,5 +407,10 @@ const styles = StyleSheet.create({
     fontFamily: 'TenorSans-Regular',
     color: '#000',
     marginLeft: 60,
+  },
+  checkoutButton: {
+    backgroundColor: '#1e90ff',
+    borderColor: '#1e90ff',
+    fontFamily: 'TenorSans-Regular',
   },
 });

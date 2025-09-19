@@ -61,3 +61,5 @@ const ProductCard = () => {
 };
 
 export default ProductCard;
+
+<Text>create same ui design as in image</Text>;

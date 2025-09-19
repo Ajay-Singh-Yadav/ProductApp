@@ -2,6 +2,8 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useSelector} from 'react-redux';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const TopBarComp = () => {
   const cartItem = useSelector(state => state.cart.items);
@@ -10,28 +12,60 @@ const TopBarComp = () => {
 
   const navigation = useNavigation();
   return (
-    <View style={[styles.row, {margin: 20, backgroundColor: '#fff'}]}>
-      <Image
-        source={require('../assets/images/Menu.png')}
-        style={{height: 30, width: 30}}
-      />
+    <View
+      style={[styles.row, {margin: 10, backgroundColor: '#fff', opacity: 0.9}]}>
+      <View style={styles.leftIcons}>
+        <View
+          style={{
+            marginRight: 10,
+            backgroundColor: '#fff',
+            borderRadius: 30,
+          }}>
+          <Ionicons name="menu" size={30} color="black" />
+        </View>
+
+        <View
+          style={{
+            backgroundColor: '#fff',
+            borderRadius: 30,
+
+            padding: 5,
+          }}>
+          <EvilIcons name="user" size={30} color="black" />
+        </View>
+      </View>
 
       <Image
-        source={require('../assets/images/Logo.png')}
-        style={{height: 35, width: 87, marginLeft: 30}}
+        source={require('../assets/images/logo.jpg')}
+        style={{height: 40, width: 87, resizeMode: 'contain'}}
       />
 
-      <View style={{flexDirection: 'row'}}>
-        <Image
-          source={require('../assets/images/Search.png')}
-          style={{height: 30, width: 30}}
-        />
-        <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
-          <View style={{position: 'relative'}}>
-            <Image
-              source={require('../assets/images/shoppingBag.png')}
-              style={{height: 30, width: 30, marginLeft: 10}}
-            />
+      <View style={styles.rightContainerIcons}>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 10,
+            backgroundColor: '#fff',
+            borderRadius: 30,
+          }}>
+          <Ionicons name="search" size={24} color="#1A2637" />
+        </View>
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#fff',
+            borderRadius: 30,
+            justifyContent: 'center',
+          }}
+          onPress={() => navigation.navigate('Cart')}>
+          <View
+            style={{
+              position: 'relative',
+              borderRadius: 30,
+              paddingHorizontal: 10,
+            }}>
+            <EvilIcons name="cart" size={24} color="black" />
             {itemCount > 0 && (
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>{itemCount}</Text>
@@ -51,12 +85,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+  },
+  leftIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F8F8F8',
+    borderRadius: 30,
+    padding: 5,
+  },
+  rightContainerIcons: {
+    backgroundColor: '#F8F8F8',
+    borderRadius: 30,
+    padding: 5,
+    flexDirection: 'row',
+    gap: 10,
   },
   badge: {
     position: 'absolute',
     right: -5,
-    top: -5,
+    top: -8,
     backgroundColor: 'red',
     borderRadius: 10,
     minWidth: 18,

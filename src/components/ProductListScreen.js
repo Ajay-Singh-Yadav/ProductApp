@@ -15,6 +15,8 @@ import {
 import {fetchPosts, resetPosts} from '../redux/slices/postsSlice';
 import {useSelector, useDispatch} from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
 import {addCart} from '../redux/slices/cartSlice ';
 import Toast from 'react-native-toast-message';
@@ -97,19 +99,22 @@ const ProductListScreen = () => {
         marginTop: 0,
       }}>
       <View style={styles.searchContainer}>
-        <AntDesign
-          name="search1"
+        <EvilIcons
+          name="location"
           size={20}
-          color="#888"
+          color="#000"
           style={styles.searchIcon}
         />
-        <TextInput
-          placeholder="Search products..."
-          value={searchedText}
-          onChangeText={setSearchedText}
-          placeholderTextColor="#999"
-          style={styles.searchInput}
-        />
+
+        <Text style={{color: '#3F3F3F'}}>
+          Deliver to{' '}
+          <Text style={{color: '#000', fontWeight: 'bold'}}>Jaddah</Text>
+        </Text>
+        <Entypo name="chevron-small-down" size={20} color="#000" />
+      </View>
+
+      <View>
+        <Entypo name="chevron-small-down" size={20} color="#000" />
       </View>
 
       <ScrollView
@@ -180,10 +185,11 @@ const ProductListScreen = () => {
                     justifyContent: 'center',
                     marginLeft: 0,
                   }}>
-                  <AntDesign name="star" size={20} color="#FFD700" />
-                  <AntDesign name="star" size={20} color="#FFD700" />
-                  <AntDesign name="star" size={20} color="#FFD700" />
-                  <AntDesign name="star" size={20} color="#FFD700" />
+                  <AntDesign name="star" size={15} color="#FFD700" />
+                  <AntDesign name="star" size={16} color="#FFD700" />
+                  <AntDesign name="star" size={17} color="#FFD700" />
+                  <AntDesign name="star" size={18} color="#FFD700" />
+                  <AntDesign name="star" size={19} color="#FFD700" />
                   <Text style={{fontSize: 15, marginLeft: 8}}>
                     {item.rating}
                   </Text>
@@ -266,11 +272,13 @@ const ProductListScreen = () => {
                     dispatch(addCart(item));
                     Toast.show({
                       type: 'success',
-                      text1: 'Added to Cart',
                       text2: `${item.title} was added successfully 👌`,
                     });
                   }}
-                  style={[styles.buttonCard, {width: 120}]}>
+                  style={[
+                    styles.buttonCard,
+                    {width: 120, backgroundColor: '#FFD700'},
+                  ]}>
                   <Text style={{fontSize: 13, fontFamily: 'TenorSans-Regular'}}>
                     Add to cart
                   </Text>
@@ -337,17 +345,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f1f1f1',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginHorizontal: 16,
-    marginVertical: 12,
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    marginLeft: 11,
   },
   searchIcon: {
     marginRight: 8,
