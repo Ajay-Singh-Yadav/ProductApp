@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  StatusBar,
 } from 'react-native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import TopBarComp from '../components/TopBarComp';
@@ -17,6 +18,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import SignupOfferBanner from '../components/SignupOfferBanner';
 import ExploreMoreCard from '../components/ExploreMoreCard';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const {width} = Dimensions.get('window');
 
@@ -25,7 +27,8 @@ const ProductScreen = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const {items} = useSelector(state => state.posts);
+  const {items} = useSelector(state => state.cart);
+
   const dispatch = useDispatch();
 
   const images = [
@@ -36,7 +39,8 @@ const ProductScreen = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
       <TopBarComp />
 
       <ScrollView>
@@ -195,7 +199,7 @@ const ProductScreen = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
