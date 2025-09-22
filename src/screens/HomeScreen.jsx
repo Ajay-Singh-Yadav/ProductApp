@@ -20,23 +20,33 @@ import ExploreMoreCard from '../components/ExploreMoreCard';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+import {PRODUCTS} from '../data/Product';
+
 const {width} = Dimensions.get('window');
 
 const ProductScreen = () => {
-  const [selectedSize, setSelectedSize] = useState('8');
+  const product = PRODUCTS[0];
+
+  const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
   const {items} = useSelector(state => state.cart);
-
   const dispatch = useDispatch();
 
-  const images = [
-    {id: '1', src: require('../assets/images/Image.png')},
-    {id: '2', src: require('../assets/images/back.png')},
-    {id: '3', src: require('../assets/images/girl.png')},
-    {id: '4', src: require('../assets/images/Img2.png')},
-  ];
+  const images = product.images.map((img, index) => ({
+    id: String(index),
+    src: img,
+  }));
+
+  const handleAddToCart = () => {
+    dispatch(addCart(product));
+    Toast.show({
+      type: 'success',
+      text1: 'Added to Cart',
+      text2: `${product.title} has been added.`,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -129,18 +139,19 @@ const ProductScreen = () => {
         </View>
 
         <View style={styles.infoBox}>
-          <Text style={styles.brand}>Squishmallows</Text>
-          <Text style={styles.title}>
-            Squishmallows Official Kellytoy Plush 12" Maui The Pineapple
-          </Text>
+          <Text style={styles.brand}>{product.brand}</Text>
+          <Text style={styles.title}>{product.title}</Text>
 
           <View style={styles.bestDealRow}>
             <Text style={styles.bestDealText}>Best Deal</Text>
           </View>
+
           <View style={styles.priceRow}>
-            <Text style={styles.price}>50.00 SAR</Text>
-            <Text style={styles.oldPrice}>70.00 SAR</Text>
-            <Text style={styles.discount}>28% OFF</Text>
+            <Text style={styles.price}>{product.price.toFixed(2)} SAR</Text>
+            <Text style={styles.oldPrice}>
+              {product.oldPrice.toFixed(2)} SAR
+            </Text>
+            <Text style={styles.discount}>{product.discount}</Text>
           </View>
         </View>
 
@@ -153,7 +164,7 @@ const ProductScreen = () => {
           Size: {selectedSize ? `${selectedSize}-inch` : ''}
         </Text>
         <View style={styles.sizeRow}>
-          {['5', '8', '12', '24'].map(size => (
+          {product.sizes.map(size => (
             <TouchableOpacity
               key={size}
               style={[
@@ -185,15 +196,7 @@ const ProductScreen = () => {
               <Text style={styles.qtyBtn}>+</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={styles.cartButton}
-            onPress={() => {
-              dispatch(addCart(items));
-              Toast.show({
-                type: 'success',
-                text2: `Item was added successfully`,
-              });
-            }}>
+          <TouchableOpacity style={styles.cartButton} onPress={handleAddToCart}>
             <Text style={styles.cartText}>Add to Cart</Text>
           </TouchableOpacity>
         </View>
