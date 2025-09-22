@@ -172,8 +172,7 @@ const ProductScreen = () => {
           ))}
         </View>
 
-        {/* Offer Banner */}
-        <SignupOfferBanner onPress={() => console.log('Signup clicked')} />
+        <SignupOfferBanner />
 
         <View style={styles.cartRow}>
           <View style={styles.quantityBox}>
@@ -192,7 +191,7 @@ const ProductScreen = () => {
               dispatch(addCart(items));
               Toast.show({
                 type: 'success',
-                text2: `Item was added successfully 👌`,
+                text2: `Item was added successfully`,
               });
             }}>
             <Text style={styles.cartText}>Add to Cart</Text>
@@ -260,7 +259,6 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(10),
   },
 
-  // Image Carousel
   imageCarousel: {
     position: 'relative',
     alignItems: 'center',
@@ -281,7 +279,6 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
 
-  // Thumbnails
   productImageListContainer: {
     marginTop: verticalScale(10),
     paddingHorizontal: scale(10),

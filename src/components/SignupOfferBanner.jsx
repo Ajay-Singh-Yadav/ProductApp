@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
-const SignupOfferBanner = ({onPress}) => {
+const SignupOfferBanner = () => {
   const [showCoupons, setShowCoupons] = useState(false);
 
   const coupons = [
@@ -13,12 +13,10 @@ const SignupOfferBanner = ({onPress}) => {
 
   const toggleCoupons = () => {
     setShowCoupons(prev => !prev);
-    if (onPress) onPress();
   };
 
   return (
     <View>
-      {/* Banner */}
       <View style={styles.banner}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Signup and Get</Text>
@@ -34,7 +32,6 @@ const SignupOfferBanner = ({onPress}) => {
         </TouchableOpacity>
       </View>
 
-      {/* Coupons List */}
       {showCoupons && (
         <FlatList
           data={coupons}
@@ -42,7 +39,6 @@ const SignupOfferBanner = ({onPress}) => {
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <View style={styles.couponRow}>
-              {/* Left Section */}
               <View style={styles.couponLeft}>
                 <Icon
                   name="ticket-percent"
@@ -55,7 +51,6 @@ const SignupOfferBanner = ({onPress}) => {
                 </View>
               </View>
 
-              {/* Right Section */}
               <TouchableOpacity style={styles.couponCodeBox}>
                 <Text style={styles.couponCode}>{item.code}</Text>
                 <Icon
@@ -94,7 +89,6 @@ const styles = StyleSheet.create({
   },
   signupText: {color: '#fff', fontSize: moderateScale(14), fontWeight: '600'},
 
-  // Coupons
   couponRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
