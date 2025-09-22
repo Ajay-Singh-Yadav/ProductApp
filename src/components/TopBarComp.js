@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useSelector} from 'react-redux';
@@ -10,7 +9,6 @@ const TopBarComp = () => {
 
   const itemCount = cartItem.length;
 
-  const navigation = useNavigation();
   return (
     <View
       style={[styles.row, {margin: 10, backgroundColor: '#fff', opacity: 0.9}]}>
@@ -57,8 +55,7 @@ const TopBarComp = () => {
             backgroundColor: '#fff',
             borderRadius: 30,
             justifyContent: 'center',
-          }}
-          onPress={() => navigation.navigate('Cart')}>
+          }}>
           <View
             style={{
               position: 'relative',

@@ -1,18 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {useAuth} from '../redux/AuthProvider';
 
 const SignupOfferBanner = () => {
-  const [showCoupons, setShowCoupons] = useState(false);
+  const {isSignedUp, signup, couponsVisible, toggleCoupons} = useAuth();
 
   const coupons = [
     {id: '1', code: 'TOYS10', desc: 'Save 10% off'},
     {id: '2', code: 'NEW50', desc: 'Flat 50 SAR off'},
   ];
 
-  const toggleCoupons = () => {
-    setShowCoupons(prev => !prev);
+  const handleButtonPress = () => {
+    if (!isSignedUp) {
+      signup();
+    } else {
+      toggleCoupons();
+    }
   };
 
   return (
@@ -25,14 +30,20 @@ const SignupOfferBanner = () => {
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.signupButton} onPress={toggleCoupons}>
+        <TouchableOpacity
+          style={styles.signupButton}
+          onPress={handleButtonPress}>
           <Text style={styles.signupText}>
-            {showCoupons ? 'Hide Coupons' : 'Signup Now'}
+            {!isSignedUp
+              ? 'Signup Now'
+              : couponsVisible
+              ? 'Hide Coupons'
+              : 'Show Coupons'}
           </Text>
         </TouchableOpacity>
       </View>
 
-      {showCoupons && (
+      {isSignedUp && couponsVisible && (
         <FlatList
           data={coupons}
           horizontal
